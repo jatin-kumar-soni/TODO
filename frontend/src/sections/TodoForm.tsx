@@ -14,7 +14,7 @@ interface TodoFormProps {
   mode: Mode;
   todo: Todo | null;
   onCreated: () => void;
-  onUpdated: (todo: Todo) => void;
+  onUpdated: () => void;
   onReset: () => void;
 }
 
@@ -49,8 +49,8 @@ const TodoForm = ({ mode, todo, onCreated, onUpdated, onReset }: TodoFormProps) 
 
   const updateMutation = useMutation({
     mutationFn: (values: EditTodoFormValues) => updateTodo(todo?.id ?? "", values),
-    onSuccess: (data) => {
-      onUpdated(data.todo);
+    onSuccess: () => {
+      onUpdated();
     },
     onError: (err: unknown) => {
       if (err instanceof ApiError) {

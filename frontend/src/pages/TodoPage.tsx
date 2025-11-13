@@ -14,9 +14,9 @@ const TodoPage = () => {
     setEditing(todo);
   };
 
-  const handleUpdated = (todo: Todo) => {
+  const handleUpdated = () => {
     queryClient.invalidateQueries({ queryKey: ["todos"] });
-    setEditing(todo);
+    setEditing(null);
   };
 
   const handleCreated = () => {
