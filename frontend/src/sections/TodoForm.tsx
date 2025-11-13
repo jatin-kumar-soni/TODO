@@ -62,6 +62,7 @@ const TodoForm = ({ mode, todo, onCreated, onUpdated, onReset }: TodoFormProps) 
   });
 
   useEffect(() => {
+    // populate form when editing
     if (mode === "edit" && todo) {
       form.reset({
         title: todo.title,
@@ -69,6 +70,7 @@ const TodoForm = ({ mode, todo, onCreated, onUpdated, onReset }: TodoFormProps) 
       });
       return;
     }
+    // clear form for new todo
     form.reset({
       title: "",
       description: ""

@@ -16,6 +16,7 @@ export class ApiError extends Error {
 export const errorHandler = async (err: Error, req: Request, res: Response, _next: NextFunction): Promise<void> => {
   const status = err instanceof ApiError ? err.statusCode : 500;
   const message = err instanceof ApiError ? err.message : "Unexpected error";
+  // log all errors to mongodb
   await logError(err.message, err.stack, { path: req.path, method: req.method, body: req.body, query: req.query });
   res.status(status).json({ message, details: err instanceof ApiError ? err.details : undefined });
 };

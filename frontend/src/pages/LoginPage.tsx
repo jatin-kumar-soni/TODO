@@ -32,6 +32,7 @@ const LoginPage = () => {
     onSuccess: (data) => {
       setAuth(data);
       queryClient.invalidateQueries({ queryKey: ["todos"] });
+      // redirect to where user came from or todos page
       const redirectPath = location.state?.from || "/todos";
       navigate(redirectPath, { replace: true });
     },

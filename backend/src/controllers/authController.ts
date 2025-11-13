@@ -17,6 +17,7 @@ export const signup = asyncHandler(async (req: Request, res: Response) => {
   }
 
   const { email, name, password } = parsed.data;
+  // check if user already exists
   const existing = await UserModel.findOne({ email });
   if (existing) {
     throw new ApiError(409, "Account already exists");
@@ -57,6 +58,7 @@ export const forgotPassword = asyncHandler(async (req: Request, res: Response) =
 
   const { email } = parsed.data;
   const user = await UserModel.findOne({ email });
+  // dont reveal if email exists or not for security
   if (!user) {
     res.json({ message: "If the account exists a reset link will be sent" });
     return;
@@ -67,6 +69,7 @@ export const forgotPassword = asyncHandler(async (req: Request, res: Response) =
   user.resetTokenExpiresAt = expiresAt;
   await user.save();
 
+  // returning token in response for demo, in production would send via email
   res.json({
     message: "Reset link generated",
     resetToken: raw,
